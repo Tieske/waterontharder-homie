@@ -10,7 +10,11 @@
 #define TIESKE_MQTT_PORT 1883
 
 // DeviceID, used to connect to MQTT server as well as the Homie Device ID
-#define TIESKE_DEVICE_ID "wtw-ventilatie"
+#define TIESKE_DEVICE_ID "waterontharder"
 
 // The baud rate to use for logging to the serial console
-#define SERIAL_BAUD_RATE 115200
+#define SERIAL_BAUD_RATE 9600
+
+// Defaults
+const unsigned long defaultMeasurementInterval  = 5000; // measurement interval in milliseconds
+const int defaultMaxTankDepth = 100; // maximum, this measured distance means the tank is empty
