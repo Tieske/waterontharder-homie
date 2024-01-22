@@ -231,7 +231,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
         if (String(topic) == intervalPropertySetTopic) {
           // new meaurement interval (in seconds)
           measurementInterval = 1000 * (long)floor(value.toFloat()); //convert to millisecs
-          client.publish(intervalPropertyTopic.c_str(), String(measurementInterval).c_str(), true);
+          client.publish(intervalPropertyTopic.c_str(), String(floor(measurementInterval/1000)).c_str(), true);
           storeConfig();  // store updated settings in SPIFFS
           currentDistance = currentDistance + 100; // force a "change" and hence an update on next measurement
           
@@ -269,7 +269,7 @@ void publishHomieDeviceDescription() {
   writeTopic("homie/" + deviceId + "/config/$properties",    "interval,depth", true);
   writeTopic("homie/" + deviceId + "/config/$type",          "parameters", true);
   
-  writeTopic("homie/" + deviceId + "/config/interval",            String(measurementInterval), true);
+  writeTopic("homie/" + deviceId + "/config/interval",            String(floor(measurementInterval/1000)), true);
   writeTopic("homie/" + deviceId + "/config/interval/$datatype",  "integer", true);
   writeTopic("homie/" + deviceId + "/config/interval/$name",      "Measurement interval", true);
   writeTopic("homie/" + deviceId + "/config/interval/$retained",  "true", true);
